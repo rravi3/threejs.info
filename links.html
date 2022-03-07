@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0,
+    maximum-scale=1.0, minimum-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="links_styles.css">
+</head>
+<body>
+
+    <!-- Nav Section-->
+    <nav class="navbar">
+        <div class="navbar__container">
+            <a href="/index.html" id="navbar__logo">Home</a>
+            <div class="navbar__toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="navbar__menu">
+                
+                <li class="navbar__item">
+                    <a href="./about_tech.html" class="navbar__links"> Learn </a>
+                </li>
+                <li class="navbar__item">
+                    <a href="./tutorial.html" class="navbar__links"> Watch Tutorial </a>
+                </li>
+                <li class="navbar__item">
+                    <a href="./links.html" class="navbar__links"> Get Inspired </a>
+                </li>
+                <li class="navbar__item">
+                    <a href="./critique.html" class="navbar__links"> Read More </a>
+                </li>
+                <li class="navbar__item">
+                    <a href="./about.html" class="navbar__links"> About Site </a>
+                </li>
+                <!-- <li class="navbar__btn">
+                    <a href="https://threejs.org/" target="_blank" class="button">threejs.org</a>
+                </li> -->
+            </ul>
+        </div>
+    </nav>
+    <!-- End Nav Section -->
+
+    <!-- Torus Animation -->
+    <script src="./js/three.js"></script>
+    <div id="torus-animation">
+        <script>
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
+            camera.position.setZ(3);
+            
+            let container = document.getElementById('torus-animation')
+            document.body.appendChild( container );
+            document.addEventListener('mousemove', animateStars)
+
+            const renderer = new THREE.WebGLRenderer();
+            // renderer.setSize( window.innerWidth * .992 , window.innerHeight * .992);
+            renderer.setSize( window.innerWidth, window.innerHeight);
+            renderer.setClearColor(new THREE.Color('#131313'))
+            container.appendChild( renderer.domElement );
+            let mouseX = 0;
+            let mouseY = 0;
+            function animateStars(event) {
+                mouseX = event.clientX
+                mouseY = event.clientY
+                particlesMesh.rotation.y = -mouseX  * 0.0005
+                particlesMesh.rotation.x = -mouseY  * 0.0005
+                face.rotation.y = -mouseX * 0.005
+                face.rotation.z = -mouseY * 0.005
+            }
+            const loader = new THREE.TextureLoader();
+            const star = loader.load('./images/star.png');
+            const face_geometry = new THREE.ConeGeometry(0.65, 1.3, 40);
+            const starsGeometry = new THREE.BufferGeometry;
+            const particlesCnt = 5000;
+            const posArray = new Float32Array(particlesCnt * 3)
+            for (let i = 0; i < particlesCnt * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 5
+            }
+            starsGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3))
+            const face_material = new THREE.ShaderMaterial( {
+                uniforms: {
+                    color1: {
+                        value: new THREE.Color("red")
+                    },
+                    color2: {
+                        value: new THREE.Color("purple")
+                    }
+                },
+                vertexShader: `
+                    varying vec2 vUv;
+
+                    void main() {
+                    vUv = uv;
+                    gl_Position = projectionMatrix * modelViewMatrix * vec4(position,1.0);
+                    }
+                `,
+                fragmentShader: `
+                    uniform vec3 color1;
+                    uniform vec3 color2;
+                
+                    varying vec2 vUv;
+                    
+                    void main() {
+                    
+                    gl_FragColor = vec4(mix(color1, color2, vUv.y), 1.0);
+                    }
+                `,
+                wireframe: true
+            });
+            const particlesMaterial = new THREE.PointsMaterial( {
+                size: 0.03,
+                map: star,
+                transparent: true, 
+                blending: THREE.AdditiveBlending
+            });
+            const particlesMesh = new THREE.Points(starsGeometry, particlesMaterial)
+            const face = new THREE.Mesh(face_geometry, face_material);
+            
+            face.position.y = 0.2;
+            face.position.x = 1;
+            face.rotation.y = -0.8;
+            
+            scene.add(face, particlesMesh);
+
+            const pointLight = new THREE.PointLight(0xffffff, 1);
+            pointLight.position.x = -2;
+            pointLight.position.y = 1.3;
+            pointLight.position.z = 1;
+            scene.add(pointLight)
+            const clock = new THREE.Clock();
+            function animate() {
+                const elapsedTime = clock.getElapsedTime()
+                requestAnimationFrame( animate );
+                renderer.setSize( window.innerWidth, window.innerHeight);
+                renderer.render( scene, camera );
+            };
+            animate();
+        </script>
+    </div>
+    <!-- End Torus Animation -->
+
+    <!-- Hero Section -->
+    <div class="main">
+        <div class="main__content">
+            <h1>Inspiring Sites</h1>
+            <!-- <h2>A Modern Javascript Library</h2> -->
+            <p>Explore cool content on the web<br>Brought to you by <span class="gradient-p">THREE.JS</span></p>
+            <!-- <button class="main__btn"><a href="/">Get Started</a></button> -->
+        </div>
+        <!-- <div class="main__img--container"> -->
+            <!-- <img src="images/pair_programming.svg" alt="pic" id="main__img"> -->
+        <!-- </div> -->
+    </div>
+
+    <section>
+        <div class="links-container">
+            <div class="links-table">
+                <!-- 1st link -->
+                <div class="links-item">
+                    <div class="links-content">
+                        <!-- <i class="fa-solid fa-1"></i> -->
+                        <h5 class="link-title">Nike</h5>
+                        <ul class="link-description-list">
+                            <li class="link-description-item">
+                                <p>
+                                This refrence displays how three-dimensional attributes can be applied to
+                                products we are familiar and make them more realistic in the virtual world.
+                                This should hopefully give you an appreciation for the application of this 
+                                technology in future markets. There is a demand for web developers with these 
+                                skills to help build sites like this for various organization that want to 
+                                display their products in the most modern way possible. You might be getting 
+                                curious about how they used three.js to create immersive shoe models for people 
+                                to play around with on a website. First, you'll have to learn the basics of 
+                                three.js works and then you'll start peicing the puzzles together. You'll see how 
+                                you can use it in your programming to create something more immersive. use this 
+                                site to appreciate the societal implications this technology has on consumer behavior 
+                                and product marketing.
+                                </p>
+                            </li>
+                            <!-- <li class="link-description-item">
+                                <a href="https://threejs.org/docs/#manual/en/introduction/Installation" target="_blank" rel="noopener noreferrer" class="skill">
+                                    <p>
+                                        more
+                                    </p>
+                                </a>
+                            </li> -->
+                            <li class="link-button">
+                                <a href="http://www.nike.com/xp/b/genealogyofthefree/zoetrope.html" target="_blank" rel="noopener noreferrer" class="skill">Experience Site</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="links-content small interactive">
+                        <a href="http://www.nike.com/xp/b/genealogyofthefree/zoetrope.html" target="blank" rel="noopener noreferrer">
+                            <img src="./images/links-nike-threejs-site.png" alt="NIKE IMG LOADING..." style="width:100%;">  
+                        </a>
+                    </div>
+                </div>
+                <!-- End 1st link -->
+                <!-- 2nd link -->
+                <div class="links-item">
+                    <div class="links-content small interactive">
+                        <a href="https://webxr-sneakers.lusion.co/" target="_blank" rel="noopener noreferrer">
+                            <img src="./images/links-basic-shoe.gif" alt="SNEAKERS IMG LOADING..." style="width:100%;">    
+                        </a>
+                    </div>
+                    <div class="links-content">
+                        <!-- <i class="fa-solid fa-2"></i> -->
+                        <h5 class="link-title">MORE COOL &#128095;</h5>
+                        <ul class="link-description-list">
+                            <li class="link-description-item">
+                                <p>
+                                    This team utilizes three.js to offer an immersive 3D view of the shoes.
+                                    This makes he user feel like they are at the shoe store and can view the
+                                    product in different angles in a smooth manner. The application of three.js
+                                    to create an 3D transformative background results in modern and clean
+                                    aesthetics. Users of this technology have the option of creating in three
+                                    dimesions instead of just two, giving them more versatility in displaying
+                                    their work or product.
+                                </p>
+                            </li>
+                            <li class="link-button">
+                                <a href="https://webxr-sneakers.lusion.co/" target="_blank" rel="noopener noreferrer" class="skill">EXPERIENCE SITE</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- End 2nd link -->
+                <!-- 3rd link -->
+                <div class="links-item">
+                    <div class="links-content">
+                        <!-- <i class="fa-solid fa-3"></i> -->
+                        <h5 class="link-title">VR SHOWROOM</h5>
+                        <ul class="link-description-list">
+                            <li class="link-description-item">
+                                <p>
+                                    Visit this amazing virtual showroom which takes into a whole
+                                    world of shopping. Do you love online shopping? Are you interested
+                                    in e-commerce? If yes, then check out this website that sells 
+                                    furniture while letting you experience their products in a living
+                                    room setting, but all in s browser. This combines the feeling of
+                                    walking through a brick and mortar furniture stores and the ease
+                                    and accesibilty of online shopping sites like amazon. Go check out
+                                    the environments they have created and interact with their products.
+                                </p>   
+                            </li>
+                            <li class="link-button">
+                                <a href="http://showroom.littleworkshop.fr/" target="_blank" rel="noopener noreferrer" class="skill">EXPERIENCE SITE</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="links-content small interactive">
+                        <a href="http://showroom.littleworkshop.fr/" target="_blank" rel="noopener noreferrer">
+                            <img src="./images/links-chair-showroom.png" alt="FURNITURE SHOWROOM IMG LOADING..." style="width:100%;">  
+                        </a>
+                    </div>
+                </div>
+                <!-- End 3rd link -->
+                <!-- 4th link -->
+                <div class="links-item">
+                    <div class="links-content small interactive">
+                        <a href="http://www.overthetinyhills.com/" target="blank" rel="noopener noreferrer">
+                            <img src="./images/links-record-player.gif" alt="TURNTABLE IMG LOADING..." style="width:100%;">  
+                        </a>
+                    </div>
+                    <div class="links-content">
+                        <!-- <i class="fa-solid fa-4"></i> -->
+                        <h5 class="link-title">Digital Turntable</h5>
+                        <ul class="link-description-list">
+                            <li class="link-description-item">
+                                <p>
+                                    This websites takes a new look on vintage music consumption
+                                    by allowing the . Altough the music quality may be similar to
+                                    songs on Spotify rather than records, the 3D assets placed
+                                    in the scene make the website interesting and fun to navigate.
+
+                                </p>
+                            </li>
+                            <li class="link-button">
+                                <a href="http://www.overthetinyhills.com/" target="_blank" rel="noopener noreferrer" class="skill">EXPERIENCE SITE</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- End 4th link -->
+                <!-- 5th link -->
+                <div class="links-item">
+                    <div class="links-content">
+                        <!-- <i class="fa-solid fa-5"></i> -->
+                        <h5 class="link-title">MUSIC CIRCLE</h5>
+                        <ul class="link-description-list">
+                            <li class="link-description-item">
+                                <p>
+                                    There's so much you can do. Be creative!
+                                </p>
+                            </li>
+                            <li class="link-button">
+                                <a href="http://lab.sehsucht.de/" target="_blank" rel="noopener noreferrer" class="skill">EXPERIENCE SITE</a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="links-content small interactive">
+                        <a href="http://lab.sehsucht.de/" target="blank" rel="noopener noreferrer">
+                            <img src="./images/links-music-circle.gif" alt="MUSIC GROUP CHECKING IN..." style="width:100%;">    
+                        </a>
+                    </div>
+                </div>
+                <!-- End 5th Link -->
+                <!-- 6th Link -->
+                <div class="links-item">
+                    <div class="links-content small interactive">
+                        <a href="https://acko.net/" target="_blank" rel="noopener noreferrer">
+                            <img src="./images/links-sw-portfoilio.gif" alt="INTERACTIVE IMG LOADING..." style="width:100%;">  
+                        </a>
+                    </div>
+                    <div class="links-content">
+                        <!-- <i class="fa-solid fa-6"></i> -->
+                        <h5 class="link-title">Steven Wiitens</h5>
+                        <ul class="link-description-list">
+                            <li class="link-description-item">
+                                <p>
+                                    A great example of how a personal porfolio can be enhanced through this library.
+                                </p>
+                            </li>
+                            <li class="link-button">
+                                <a href="https://acko.net/" target="_blank" rel="noopener noreferrer" class="skill">EXPERIENCE SITE</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <!-- End 6th Link -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Dribble Section -->
+    <div class="dribble" id="dribble">
+        <a href='./about_tech.html' class="fancy-card">
+            <span class="fancy-card__number" aria-hidden="true">1</span>
+            <h2 class="fancy-card__title">Learn</h2>
+            <span class="fancy-card__arrow" aria-hidden="true">&#8594</span>
+
+            <img class="fancy-card__image" src="./images/about_tech_img.png" alt="">
+            <img class="fancy-card__image" src="./images/pair_programming.svg" alt="">
+        </a>
+
+        <a href='./tutorial.html' class="fancy-card">
+            <span class="fancy-card__number" aria-hidden="true">2</span>
+            <h2 class="fancy-card__title">Tutorial</h2>
+            <span class="fancy-card__arrow" aria-hidden="true">&#8594</span>
+
+            <img class="fancy-card__image" src="./images/tutorial_img.png" alt="">
+            <img class="fancy-card__image" src="./images/tutorial_thumbnail1.png" alt="">
+            <img class="fancy-card__image" src="./images/tutorial_part2.png" alt="">
+            <img class="fancy-card__image" src="./images/tutorial_thumbnail3.png" alt="">
+        </a>
+
+        <a href='./links.html' class="fancy-card-current">
+            <span class="fancy-card__number" aria-hidden="true">3</span>
+            <h2 class="fancy-card__title-current">Inspiring Sites</h2>
+            <span class="fancy-card__arrow" aria-hidden="true">&#8594</span>
+            
+            <!-- <img class="fancy-card__image" src="./images/links_img.png" alt=""> -->
+            <img class="fancy-card__image" src="./images/links-fiction-shoes.png" alt="">
+            <img class="fancy-card__image" src="./images/links-music-droids.png" alt="">
+            <img class="fancy-card__image" src="./images/links-nike-threejs-site.png" alt="">
+            <img class="fancy-card__image" src="./images/links-chair-showroom.png" alt="">
+        </a>
+
+        <a href='./critique.html' class="fancy-card">
+            <span class="fancy-card__number" aria-hidden="true">4</span>
+            <h2 class="fancy-card__title">Read more</h2>
+            <span class="fancy-card__arrow" aria-hidden="true">&#8594</span>
+
+            <img class="fancy-card__image" src="" alt="">
+            <img class="fancy-card__image" src="./images/critique_img.png" alt="">
+            <img class="fancy-card__image" src="./images/critique_flamingo.png" alt="">
+            <img class="fancy-card__image" src="./images/critique_article_header.png" alt="">
+        </a>
+
+        <a href='./about.html' class="fancy-card">
+            <span class="fancy-card__number" aria-hidden="true">5</span>
+            <h2 class="fancy-card__title">About Site</h2>
+            <span class="fancy-card__arrow" aria-hidden="true">&#8594</span>
+
+            <img class="fancy-card__image" src="" alt="">
+            <img class="fancy-card__image" src="" alt="">
+            <img class="fancy-card__image" src="./images/undraw_building_blocks_re_rwls.svg" alt="">
+            <img class="fancy-card__image" src="./images/about_title_pic.png" alt="">
+        </a>
+    </div>
+    <!-- End Dribble Section -->
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer__container">
+            <div class="footer__links">
+                <!-- <div class="footer__link--wrapper">
+                    <div class="footer__link--items">
+                        <h2>Inspiring Sites</h2>
+                        <a href="https://billie.withyoutube.com/" target="_blank"><i>BILLIE EILISH</i></a>
+                        <a href="https://cloud.withgoogle.com/infrastructure" target="_blank">Google Cloud</a>
+                        <a href="https://www.aquarium.ru/en"  target="_blank">Aquarium.ru</a>
+                    </div>
+                    <div class="footer__link--items">
+                        <h2>Community</h2>
+                        <a href="https://github.com/mrdoob/three.js/releases" target="_blank">Three.js GitHub</a>
+                        <a href="https://threejs.org/manual/#en/fundamentals">Learn</a>
+                        <a href="https://discord.gg/HF4UdyF">Discord</a>
+                        <a href="https://twitter.com/threejs">Twitter</a>
+                    </div>
+                </div> -->
+                <!-- <div class="footer__link--wrapper">
+                    <div class="footer__link--items">
+                        <h2>About Us</h2>
+                        <a href="/">How it works</a>
+                        <a href="/">Testimonials</a>
+                        <a href="/">Careers</a>
+                        <a href="/">Investments</a>
+                        <a href="/">Terms of Services</a>
+                    </div>
+                    <div class="footer__link--items">
+                        <h2>About Us</h2>
+                        <a href="/">How it works</a>
+                        <a href="/">Testimonials</a>
+                        <a href="/">Careers</a>
+                        <a href="/">Investments</a>
+                        <a href="/">Terms of Services</a>
+                    </div>
+                </div> -->
+            </div>
+            <div class="social__media">
+                <div class="social__media--wrap">
+                    <!-- <div class="footer__logo">
+                        <a href="/" id="footer__logo">Author: Rahul R</a>
+                    </div> -->
+                    <p class="website__rights">By Rahul Ravi, undergraduate @ UCSD.</p>
+                    <!-- <div class="social__icons">
+                        <a href="/" class="social__icon--link">
+                        
+                        </a>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="./app.js"></script>
+</body>
+</html>

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>THREE.JS</title>
+    <link rel="stylesheet" href="index_styles.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+        window.addEventListener("scroll", function(){
+            if(window.scrollY==0){
+                //user is at the top of the page; no need to show the back to top button
+                $(".scroll-animation").show();
+            } else {
+                $(".scroll-animation").hide(500, "linear")
+            }
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.5/gsap.min.js"></script>
+</head>
+<body>
+    <!-- Nav Section-->
+    <nav class="navbar">
+        <div class="navbar__container">
+            <a href="/index.html" id="navbar__logo">Home</a>
+            <div class="navbar__toggle" id="mobile-menu">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+            <ul class="navbar__menu">
+                
+                <li class="navbar__item">
+                    <a href="./about_tech.html" class="navbar__links"> Learn </a>
+                </li>
+                <li class="navbar__item">
+                    <a href="./tutorial.html" class="navbar__links"> Watch Tutorial </a>
+                </li>
+                <li class="navbar__item">
+                    <a href="./links.html" class="navbar__links"> Get Inspired </a>
+                </li>
+                <li class="navbar__item">
+                    <a href="./critique.html" class="navbar__links"> Read More </a>
+                </li>
+                <li class="navbar__item">
+                    <a href="./about.html" class="navbar__links"> About Site </a>
+                </li>
+                <!-- <li class="navbar__btn">
+                    <a href="https://threejs.org/" target="_blank" class="button">threejs.org</a>
+                </li> -->
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Scroll Animation -->
+    <div class="scroll-animation">
+        <a href="#dribble" class="scroll-down">
+            <div class="mouse">
+                <span></span>
+            </div>
+            <div class="arrow">
+                <span></span>
+            </div>
+        </a>
+    </div>
+    <!-- End Scroll Animation -->
+
+    <!-- Torus Animation -->
+    <script src="./js/three.js"></script>
+    <div id="torus-animation">
+        <script>
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 10000 );
+            camera.position.setZ(3);
+            
+            let container = document.getElementById('torus-animation')
+            document.body.appendChild( container );
+            document.addEventListener('mousemove', animateStars)
+
+            const renderer = new THREE.WebGLRenderer();
+            // renderer.setSize( window.innerWidth * .992 , window.innerHeight * .992);
+            renderer.setSize( window.innerWidth, window.innerHeight);
+            renderer.setClearColor(new THREE.Color('#131313'))
+            container.appendChild( renderer.domElement );
+            let mouseX = 0;
+            let mouseY = 0;
+            function animateStars(event) {
+                mouseX = event.clientX
+                mouseY = event.clientY
+                particlesMesh.rotation.y = -mouseX  * 0.0005
+                particlesMesh.rotation.x = -mouseY  * 0.0005
+                face.rotation.y = -mouseX * 0.005
+                face.rotation.x = -mouseY * 0.005
+            }
+            const loader = new THREE.TextureLoader();
+            const star = loader.load('./images/star.png');
+            // const geometry_cone_top = new THREE.ConeGeometry( 0.3, 0.5, 3 );
+            // const geometry_cone_bottom = new THREE.ConeGeometry( 0.3, 0.5, 3 );
+            const face_geometry = new THREE.TorusGeometry( 0.7, 0.2, 16, 100);
+            const starsGeometry = new THREE.BufferGeometry;
+            const particlesCnt = 5000;
+            const posArray = new Float32Array(particlesCnt * 3)
+            for (let i = 0; i < particlesCnt * 3; i++) {
+                posArray[i] = (Math.random() - 0.5) * 5
+            }
+            starsGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3))
+            // const cone_top_material = new THREE.MeshStandardMaterial( {color: 0xfe5196} )
+            // const cone_bottom_material = new THREE.MeshStandardMaterial( {color: 0x00FF00} )
+            const face_material = new THREE.PointsMaterial( {
+                size: 0.02,
+                color: '#f77062'
+            });
+            const particlesMaterial = new THREE.PointsMaterial( {
+                size: 0.03,
+                map: star,
+                transparent: true, 
+                blending: THREE.AdditiveBlending
+            });
+            const particlesMesh = new THREE.Points(starsGeometry, particlesMaterial)
+            const face = new THREE.Points(face_geometry, face_material);
+            
+            // const cone_top = new THREE.Mesh(geometry_cone_top, cone_top_material);
+            // const cone_bottom = new THREE.Mesh(geometry_cone_bottom, cone_bottom_material);
+            face.position.y = 0.2;
+            face.position.x = 1;
+            face.rotation.y = -0.8;
+            // cone_top.position.y = 0.7;
+            // cone_top.position.x = -2.1;
+            // cone_bottom.position.y = 0.1;
+            // cone_bottom.position.x = -2.1;
+            // cone_bottom.rotation.z = Math.PI;
+            // scene.add(cone_top, cone_bottom)
+            scene.add(face, particlesMesh);
+            // const ambient_light = new THREE.AmbientLight( 0x404040 ); // soft white light
+            // scene.add( ambient_light );
+            const pointLight = new THREE.PointLight(0xffffff, 0.1);
+            pointLight.position.x = 2;
+            pointLight.position.y = 3;
+            pointLight.position.z = 4;
+            scene.add(pointLight)
+            const clock = new THREE.Clock();
+            function animate() {
+                const elapsedTime = clock.getElapsedTime()
+                // face.rotation.y += 0.007;
+                // face.rotation.x += 0.005;
+                // face.position.x = window.innerWidth / 2
+                // particlesMesh.rotation.y = -0.1 * elapsedTime;
+                // cone_top.rotation.y += 0.007;
+                // cone_bottom.rotation.y += -0.007;
+                requestAnimationFrame( animate );
+                renderer.setSize( window.innerWidth, window.innerHeight);
+                renderer.render( scene, camera );
+            };
+            animate();
+        </script>
+    </div>
+    <!-- End Torus Animation -->
+
+    <!-- Hero Section -->
+    <div class="main">
+        <div class="main__container">
+            <div class="main__content">
+                <h1>THREE.JS</h1>
+                <h2>A Modern Javascript Library</h2>
+                <p>Let this site guide you in your journey of getting familiar with three.js</p>
+                <!-- Add another dimension to your coding life. -->
+                <a href="#dribble" class="main__btn"><span class="main__btn-text">Get Started</span></a>
+                <!-- <button href="#dribble" class="main__btn"></button> -->
+            </div>
+            <div class="main__img--container">
+                <!-- <img src="images/pair_programming.svg" alt="pic" id="main__img"> -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Services Section -->
+    <!-- <div class="services" id="services">
+        <h1>What's the hype?</h1>
+        <div class="services__container">
+            <div class="services__card">
+                <h2>Experience More</h2>
+                <p>With 3-D Powered Technology</p>
+                <button>Get Started</button>
+            </div>
+            <div class="services__card">
+                <h2>Take the leap</h2>
+                <p>Dive deeper into a world of projects</p>
+                <button onclick="location.href='https://threejs.org'">Get Started</button>
+            </div>
+        </div>
+    </div> -->
+    <div class="dribble" id="dribble">
+        <a href='./about_tech.html' class="fancy-card">
+            <span class="fancy-card__number" aria-hidden="true">1</span>
+            <h2 class="fancy-card__title">Learn</h2>
+            <span class="fancy-card__arrow" aria-hidden="true">&#8594</span>
+
+            <img class="fancy-card__image" src="./images/about_tech_img.png" alt="">
+        </a>
+
+        <a href='./tutorial.html' class="fancy-card">
+            <span class="fancy-card__number" aria-hidden="true">2</span>
+            <h2 class="fancy-card__title">Tutorial</h2>
+            <span class="fancy-card__arrow" aria-hidden="true">&#8594</span>
+
+            <img class="fancy-card__image" src="./images/tutorial_img.png" alt="">
+            <img class="fancy-card__image" src="./images/tutorial_thumbnail1.png" alt="">
+            <img class="fancy-card__image" src="./images/tutorial_part2.png" alt="">
+            <img class="fancy-card__image" src="./images/tutorial_thumbnail3.png" alt="">
+        </a>
+
+        <a href='./links.html' class="fancy-card">
+            <span class="fancy-card__number" aria-hidden="true">3</span>
+            <h2 class="fancy-card__title">Inspiring Sites</h2>
+            <span class="fancy-card__arrow" aria-hidden="true">&#8594</span>
+            
+            <!-- <img class="fancy-card__image" src="./images/links_img.png" alt=""> -->
+            <img class="fancy-card__image" src="./images/links-fiction-shoes.png" alt="">
+            <img class="fancy-card__image" src="./images/links-music-droids.png" alt="">
+            <img class="fancy-card__image" src="./images/links-nike-threejs-site.png" alt="">
+            <img class="fancy-card__image" src="./images/links-chair-showroom.png" alt="">
+        </a>
+
+        <a href='./critique.html' class="fancy-card">
+            <span class="fancy-card__number" aria-hidden="true">4</span>
+            <h2 class="fancy-card__title">Read more</h2>
+            <span class="fancy-card__arrow" aria-hidden="true">&#8594</span>
+
+            <img class="fancy-card__image" src="" alt="">
+            <img class="fancy-card__image" src="./images/critique_img.png" alt="">
+            <img class="fancy-card__image" src="./images/critique_flamingo.png" alt="">
+            <img class="fancy-card__image" src="./images/critique_article_header.png" alt="">
+        </a>
+
+        <a href='./about.html' class="fancy-card">
+            <span class="fancy-card__number" aria-hidden="true">5</span>
+            <h2 class="fancy-card__title">About Site</h2>
+            <span class="fancy-card__arrow" aria-hidden="true">&#8594</span>
+
+            <img class="fancy-card__image" src="" alt="">
+            <img class="fancy-card__image" src="" alt="">
+            <img class="fancy-card__image" src="./images/about_site_img.png" alt="">
+            <img class="fancy-card__image" src="./images/about_site_img.png" alt="">
+        </a>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <div class="footer__container">
+            <div class="footer__links">
+                <!-- <div class="footer__link--wrapper">
+                    <div class="footer__link--items">
+                        <h2>Inspiring Sites</h2>
+                        <a href="https://billie.withyoutube.com/" target="_blank"><i>BILLIE EILISH</i></a>
+                        <a href="https://cloud.withgoogle.com/infrastructure" target="_blank">Google Cloud</a>
+                        <a href="https://www.aquarium.ru/en"  target="_blank">Aquarium.ru</a>
+                    </div>
+                    <div class="footer__link--items">
+                        <h2>Community</h2>
+                        <a href="https://github.com/mrdoob/three.js/releases" target="_blank">Three.js GitHub</a>
+                        <a href="https://threejs.org/manual/#en/fundamentals">Learn</a>
+                        <a href="https://discord.gg/HF4UdyF">Discord</a>
+                        <a href="https://twitter.com/threejs">Twitter</a>
+                    </div>
+                </div> -->
+                <!-- <div class="footer__link--wrapper">
+                    <div class="footer__link--items">
+                        <h2>About Us</h2>
+                        <a href="/">How it works</a>
+                        <a href="/">Testimonials</a>
+                        <a href="/">Careers</a>
+                        <a href="/">Investments</a>
+                        <a href="/">Terms of Services</a>
+                    </div>
+                    <div class="footer__link--items">
+                        <h2>About Us</h2>
+                        <a href="/">How it works</a>
+                        <a href="/">Testimonials</a>
+                        <a href="/">Careers</a>
+                        <a href="/">Investments</a>
+                        <a href="/">Terms of Services</a>
+                    </div>
+                </div> -->
+            </div>
+            <div class="social__media">
+                <div class="social__media--wrap">
+                    <!-- <div class="footer__logo">
+                        <a href="/" id="footer__logo">Author: Rahul R</a>
+                    </div> -->
+                    <p class="website__rights">By Rahul Ravi, undergraduate @ UCSD.</p>
+                    <!-- <div class="social__icons">
+                        <a href="/" class="social__icon--link">
+                        
+                        </a>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+
+    <!-- Landing Animation Conent -->
+    <div class="overlay">
+        <div class="layer layer-1"></div>
+        <div class="layer layer-2">
+            <div class="loader">Loading Stuff...</div>
+        </div>
+        <div class="layer layer-3"></div>
+    </div>
+    <script>
+        gsap.to('.layer-1', {y: '-100vh', delay:4})
+        gsap.to('.layer-2', {y: '-100vh', delay:4})
+        gsap.to('.layer-3', {y: '-100vh', delay:4})
+        gsap.to('.overlay', {y: '-200vh', delay:4.3})
+
+        gsap.fromTo('.main__content', 
+            {x: '30rem', opacity: 0},
+            {x: 0, opacity: 1, ease: 'back.out(.3)', delay: 5}
+        )
+        gsap.fromTo('#torus-animation', 
+            {x: '-30rem', opacity: 0},
+            {x: 0, opacity: 1, ease: 'back.out(.3)', delay: 4.5}
+        )
+    </script>
+    <!-- End Landing Animation Content -->
+    
+</body>
+</html>
