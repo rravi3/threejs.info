@@ -5,45 +5,29 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0,
     maximum-scale=1.0, minimum-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <title>Inspiration - three.js</title>
+
     <link rel="stylesheet" href="links_styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        window.addEventListener("scroll", function(){
+            if(window.scrollY==0){
+                //user is at the top of the page; no need to show the back to top button
+                $(".scroll-animation").show();
+            } else {
+                $(".scroll-animation").hide(500, "linear")
+            }
+        });
+    </script>
+    <script> 
+        $(function(){
+          $("#navbar").load("nav.html"); 
+          $("#footer").load("footer.html");
+        });
+    </script>
 </head>
 <body>
-
-    <!-- Nav Section-->
-    <nav class="navbar">
-        <div class="navbar__container">
-            <a href="/index.html" id="navbar__logo">Home</a>
-            <div class="navbar__toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-            <ul class="navbar__menu">
-                
-                <li class="navbar__item">
-                    <a href="./about_tech.html" class="navbar__links"> Learn </a>
-                </li>
-                <li class="navbar__item">
-                    <a href="./tutorial.html" class="navbar__links"> Watch Tutorial </a>
-                </li>
-                <li class="navbar__item">
-                    <a href="./links.html" class="navbar__links"> Get Inspired </a>
-                </li>
-                <li class="navbar__item">
-                    <a href="./critique.html" class="navbar__links"> Read More </a>
-                </li>
-                <li class="navbar__item">
-                    <a href="./about.html" class="navbar__links"> About Site </a>
-                </li>
-                <!-- <li class="navbar__btn">
-                    <a href="https://threejs.org/" target="_blank" class="button">threejs.org</a>
-                </li> -->
-            </ul>
-        </div>
-    </nav>
-    <!-- End Nav Section -->
+    <div class="sticky_nav" id="navbar"></div>
 
     <!-- Torus Animation -->
     <script src="./js/three.js"></script>
@@ -157,8 +141,21 @@
         <!-- </div> -->
     </div>
 
-    <section>
-        <div class="links-container">
+    <!-- Scroll Animation -->
+    <div class="scroll-animation">
+        <a href="#links" class="scroll-down">
+            <div class="mouse">
+                <span></span>
+            </div>
+            <div class="arrow">
+                <span></span>
+            </div>
+        </a>
+    </div>
+    <!-- End Scroll Animation -->
+
+    <section id="links">
+        <div class="links-container" id="links-container">
             <div class="links-table">
                 <!-- 1st link -->
                 <div class="links-item">
@@ -167,19 +164,17 @@
                         <h5 class="link-title">Nike</h5>
                         <ul class="link-description-list">
                             <li class="link-description-item">
-                                <p>
-                                This refrence displays how three-dimensional attributes can be applied to
-                                products we are familiar and make them more realistic in the virtual world.
+                                <p class="hidden" id="summary-1">
+                                In this website, Nike displays how three-dimensional attributes can be applied to
+                                products we are familiar with and make them more realistic in the virtual world.
                                 This should hopefully give you an appreciation for the application of this 
-                                technology in future markets. There is a demand for web developers with these 
-                                skills to help build sites like this for various organization that want to 
-                                display their products in the most modern way possible. You might be getting 
-                                curious about how they used three.js to create immersive shoe models for people 
-                                to play around with on a website. First, you'll have to learn the basics of 
-                                three.js works and then you'll start peicing the puzzles together. You'll see how 
-                                you can use it in your programming to create something more immersive. use this 
-                                site to appreciate the societal implications this technology has on consumer behavior 
-                                and product marketing.
+                                technology in current and future industries. 
+                                <br>
+                                <br>
+                                There is a demand for web developers with these 
+                                skills to help build sites like this for various organizations that want to 
+                                display their products/values in the most modern way possible. Think about how you
+                                can meet the future demands of such companies by learning libraries like three.js now.
                                 </p>
                             </li>
                             <!-- <li class="link-description-item">
@@ -189,6 +184,9 @@
                                     </p>
                                 </a>
                             </li> -->
+                            <li class="link-button">
+                                <a href="javascript:;" rel="noopener noreferrer" class="skill" id="expand-1">Expand</a>
+                            </li>
                             <li class="link-button">
                                 <a href="http://www.nike.com/xp/b/genealogyofthefree/zoetrope.html" target="_blank" rel="noopener noreferrer" class="skill">Experience Site</a>
                             </li>
@@ -213,15 +211,22 @@
                         <h5 class="link-title">MORE COOL &#128095;</h5>
                         <ul class="link-description-list">
                             <li class="link-description-item">
-                                <p>
-                                    This team utilizes three.js to offer an immersive 3D view of the shoes.
-                                    This makes he user feel like they are at the shoe store and can view the
-                                    product in different angles in a smooth manner. The application of three.js
-                                    to create an 3D transformative background results in modern and clean
-                                    aesthetics. Users of this technology have the option of creating in three
+                                <p class="hidden" id="summary-2">
+                                    This team utilizes three.js to offer an immersive 3D view of shoes.
+                                    The application of three.js makes the user feel like they are physically near
+                                    the shoes and allows the user to view products in all angles. As a bonus, all 
+                                    the animations are smooth and flawless on the website.
+                                    <br>
+                                    <br>
+                                    Although these products are fake, the idea behind using this technology to
+                                    enhance online shopping should be the key takeaway.
+                                    Developers using three.js have the option of building software in three
                                     dimesions instead of just two, giving them more versatility in displaying
                                     their work or product.
                                 </p>
+                            </li>
+                            <li class="link-button">
+                                <a href="javascript:;" rel="noopener noreferrer" class="skill" id="expand-2">Expand</a>
                             </li>
                             <li class="link-button">
                                 <a href="https://webxr-sneakers.lusion.co/" target="_blank" rel="noopener noreferrer" class="skill">EXPERIENCE SITE</a>
@@ -237,16 +242,24 @@
                         <h5 class="link-title">VR SHOWROOM</h5>
                         <ul class="link-description-list">
                             <li class="link-description-item">
-                                <p>
-                                    Visit this amazing virtual showroom which takes into a whole
-                                    world of shopping. Do you love online shopping? Are you interested
-                                    in e-commerce? If yes, then check out this website that sells 
+                                <p class="hidden" id="summary-3">
+                                    Do you love online shopping? Are you interested
+                                    in e-commerce? If yes, then visit this amazing virtual showroom 
+                                    which takes you into a whole new world of shopping. This company sells 
                                     furniture while letting you experience their products in a living
-                                    room setting, but all in s browser. This combines the feeling of
-                                    walking through a brick and mortar furniture stores and the ease
-                                    and accesibilty of online shopping sites like amazon. Go check out
-                                    the environments they have created and interact with their products.
+                                    room setting, but all in a browser. 
+                                    <br>
+                                    <br>
+                                    Combining the feeling of
+                                    walking through a brick and mortar furniture store and the ease
+                                    and accesibilty of online shopping sites like amazon is a genius 
+                                    marketing move. Being early adopters of this trend will help sales
+                                    and show people that your company is keeping up with current times. 
+                                    Go check out the environments this company has created to showcase their products.
                                 </p>   
+                            </li>
+                            <li class="link-button">
+                                <a href="javascript:;" rel="noopener noreferrer" class="skill" id="expand-3">Expand</a>
                             </li>
                             <li class="link-button">
                                 <a href="http://showroom.littleworkshop.fr/" target="_blank" rel="noopener noreferrer" class="skill">EXPERIENCE SITE</a>
@@ -272,13 +285,20 @@
                         <h5 class="link-title">Digital Turntable</h5>
                         <ul class="link-description-list">
                             <li class="link-description-item">
-                                <p>
-                                    This websites takes a new look on vintage music consumption
-                                    by allowing the . Altough the music quality may be similar to
-                                    songs on Spotify rather than records, the 3D assets placed
-                                    in the scene make the website interesting and fun to navigate.
-
+                                <p class="hidden" id="summary-4">
+                                    This is a nice little project created by an enthusiatic programmer.
+                                    They have combined their appreciation for music and web development
+                                    and displayed their creation through an interactive turntable.
+                                    <br>
+                                    <br>
+                                    Many young programmers looking to impress recruiters can also create
+                                    fun projects like this and display it on their github. It shows the
+                                    viewer that the programmer is passionate and willing to solve problems
+                                    even when it has no real consequences.
                                 </p>
+                            </li>
+                            <li class="link-button">
+                                <a href="javascript:;" rel="noopener noreferrer" class="skill" id="expand-4">Expand</a>
                             </li>
                             <li class="link-button">
                                 <a href="http://www.overthetinyhills.com/" target="_blank" rel="noopener noreferrer" class="skill">EXPERIENCE SITE</a>
@@ -294,9 +314,24 @@
                         <h5 class="link-title">MUSIC CIRCLE</h5>
                         <ul class="link-description-list">
                             <li class="link-description-item">
-                                <p>
-                                    There's so much you can do. Be creative!
+                                <p class="hidden" id="summary-5">
+                                    This ensemble of 3D assets is an exceptional example of the limitless possibilites
+                                    of a virtual world.
+                                    The creators have built a scene with a variety of different
+                                    artists making wonderful music while the user can get points for 
+                                    interacting with the circle on beat.
+                                    <br>
+                                    <br>
+                                    This simple game can be created and run with code exceuted by the browser, which
+                                    is truly amazing.
+                                    Widespread adoption of tools that enable developers to build
+                                    3D worlds like this will augment future users' experience in the 
+                                    virtual worlds. It is important for developers to stay sharp
+                                    with the tools now, so they can keep up with public demand later.
                                 </p>
+                            </li>
+                            <li class="link-button">
+                                <a href="javascript:;" rel="noopener noreferrer" class="skill" id="expand-5">Expand</a>
                             </li>
                             <li class="link-button">
                                 <a href="http://lab.sehsucht.de/" target="_blank" rel="noopener noreferrer" class="skill">EXPERIENCE SITE</a>
@@ -319,12 +354,28 @@
                     </div>
                     <div class="links-content">
                         <!-- <i class="fa-solid fa-6"></i> -->
-                        <h5 class="link-title">Steven Wiitens</h5>
+                        <h5 class="link-title">Steven Wittens</h5>
                         <ul class="link-description-list">
                             <li class="link-description-item">
-                                <p>
-                                    A great example of how a personal porfolio can be enhanced through this library.
+                                <p class="hidden" id="summary-6">
+                                    Steven Wittens is an absolute genius when it comes to math, computer science,
+                                    and design.
+                                    His site is a great example of how a personal porfolio can be enhanced through 
+                                    this library. In fact, the crazy animations on his website brings credibility
+                                    to his work because it ignites curiosity in the viewer. To support his work,
+                                    he has included documentation and tutorials to repeat what he has created.
+                                    <br>
+                                    <br>
+                                    Many young programmers can learn a lot by visiting his projects and should use 
+                                    his portfolio as inspiration of how to pursue projects and then display 
+                                    them in a meaningful way. By sharing the work online, you are being transparent
+                                    and open in your pursuit of learning and this will attract other people on
+                                    similar pursuits and creates more opportunities for collaboration.
+                                    
                                 </p>
+                            </li>
+                            <li class="link-button">
+                                <a href="javascript:;" rel="noopener noreferrer" class="skill" id="expand-6">Expand</a>
                             </li>
                             <li class="link-button">
                                 <a href="https://acko.net/" target="_blank" rel="noopener noreferrer" class="skill">EXPERIENCE SITE</a>
@@ -339,12 +390,12 @@
 
     <!-- Dribble Section -->
     <div class="dribble" id="dribble">
-        <a href='./about_tech.html' class="fancy-card">
+        <a href='./learn.html' class="fancy-card">
             <span class="fancy-card__number" aria-hidden="true">1</span>
             <h2 class="fancy-card__title">Learn</h2>
             <span class="fancy-card__arrow" aria-hidden="true">&#8594</span>
 
-            <img class="fancy-card__image" src="./images/about_tech_img.png" alt="">
+            <img class="fancy-card__image" src="./images/learn_knot_pic.png" alt="">
             <img class="fancy-card__image" src="./images/pair_programming.svg" alt="">
         </a>
 
@@ -395,60 +446,70 @@
     </div>
     <!-- End Dribble Section -->
 
-    <!-- Footer Section -->
-    <footer>
-        <div class="footer__container">
-            <div class="footer__links">
-                <!-- <div class="footer__link--wrapper">
-                    <div class="footer__link--items">
-                        <h2>Inspiring Sites</h2>
-                        <a href="https://billie.withyoutube.com/" target="_blank"><i>BILLIE EILISH</i></a>
-                        <a href="https://cloud.withgoogle.com/infrastructure" target="_blank">Google Cloud</a>
-                        <a href="https://www.aquarium.ru/en"  target="_blank">Aquarium.ru</a>
-                    </div>
-                    <div class="footer__link--items">
-                        <h2>Community</h2>
-                        <a href="https://github.com/mrdoob/three.js/releases" target="_blank">Three.js GitHub</a>
-                        <a href="https://threejs.org/manual/#en/fundamentals">Learn</a>
-                        <a href="https://discord.gg/HF4UdyF">Discord</a>
-                        <a href="https://twitter.com/threejs">Twitter</a>
-                    </div>
-                </div> -->
-                <!-- <div class="footer__link--wrapper">
-                    <div class="footer__link--items">
-                        <h2>About Us</h2>
-                        <a href="/">How it works</a>
-                        <a href="/">Testimonials</a>
-                        <a href="/">Careers</a>
-                        <a href="/">Investments</a>
-                        <a href="/">Terms of Services</a>
-                    </div>
-                    <div class="footer__link--items">
-                        <h2>About Us</h2>
-                        <a href="/">How it works</a>
-                        <a href="/">Testimonials</a>
-                        <a href="/">Careers</a>
-                        <a href="/">Investments</a>
-                        <a href="/">Terms of Services</a>
-                    </div>
-                </div> -->
-            </div>
-            <div class="social__media">
-                <div class="social__media--wrap">
-                    <!-- <div class="footer__logo">
-                        <a href="/" id="footer__logo">Author: Rahul R</a>
-                    </div> -->
-                    <p class="website__rights">By Rahul Ravi, undergraduate @ UCSD.</p>
-                    <!-- <div class="social__icons">
-                        <a href="/" class="social__icon--link">
-                        
-                        </a>
-                    </div> -->
-                </div>
-            </div>
-        </div>
-    </footer>
+    <div id="footer"></div>
 
-    <script src="./app.js"></script>
+    <script>
+        document.querySelector('#expand-1').addEventListener('click',function(e){
+            document.querySelector('#summary-1').classList.toggle('hidden');
+            var x = document.querySelector("#summary-1");
+            if ($("#summary-1").is(":hidden")) {
+                document.querySelector("#expand-1").innerHTML = "Expand";
+            }
+            else {
+                document.querySelector("#expand-1").innerHTML = "Less";
+            }
+        });
+        document.querySelector('#expand-2').addEventListener('click',function(e){
+            document.querySelector('#summary-2').classList.toggle('hidden');
+            var x = document.querySelector("#summary-2");
+            if ($("#summary-2").is(":hidden")) {
+                document.querySelector("#expand-2").innerHTML = "Expand";
+            }
+            else {
+                document.querySelector("#expan-2").innerHTML = "Less";
+            }
+        });
+        document.querySelector('#expand-3').addEventListener('click',function(e){
+            document.querySelector('#summary-3').classList.toggle('hidden');
+            var x = document.querySelector("#summary-3");
+            if ($("#summary-3").is(":hidden")) {
+                document.querySelector("#expand-3").innerHTML = "Expand";
+            }
+            else {
+                document.querySelector("#expand-3").innerHTML = "Less";
+            }
+        });
+        document.querySelector('#expand-4').addEventListener('click',function(e){
+            document.querySelector('#summary-4').classList.toggle('hidden');
+            var x = document.querySelector("#summary-4");
+            if ($("#summary-4").is(":hidden")) {
+                document.querySelector("#expand-4").innerHTML = "Expand";
+            }
+            else {
+                document.querySelector("#expand-4").innerHTML = "Less";
+            }
+        });
+        document.querySelector('#expand-5').addEventListener('click',function(e){
+            document.querySelector('#summary-5').classList.toggle('hidden');
+            var x = document.querySelector("#summary-5");
+            if ($("#summary-5").is(":hidden")) {
+                document.querySelector("#expand-5").innerHTML = "Expand";
+            }
+            else {
+                document.querySelector("#expand-5").innerHTML = "Less";
+            }
+        });
+        document.querySelector('#expand-6').addEventListener('click',function(e){
+            document.querySelector('#summary-6').classList.toggle('hidden');
+            var x = document.querySelector("#summary-6");
+            if ($("#summary-6").is(":hidden")) {
+                document.querySelector("#expand-6").innerHTML = "Expand";
+            }
+            else {
+                document.querySelector("#expand-6").innerHTML = "Less";
+            }
+        });
+    </script>
+
 </body>
 </html>

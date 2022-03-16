@@ -6,42 +6,56 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>THREE.JS</title>
     <link rel="stylesheet" href="about_styles.css" />
-    <script src="jquery.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+        window.addEventListener("scroll", function(){
+            if(window.scrollY==0){
+                //user is at the top of the page; no need to show the back to top button
+                $(".scroll-animation").show();
+            } else {
+                $(".scroll-animation").hide(500, "linear")
+            }
+        });
+    </script>
+    <script> 
+        $(function(){
+          $("#navbar").load("nav.html"); 
+          $("#footer").load("footer.html");
+        });
+    </script>
+    <script>
+        window.addEventListener("scroll", function(){
+            if(window.scrollY==0){
+                //user is at the top of the page; no need to show the back to top button
+                $(".scroll-animation").show();
+            } else {
+                $(".scroll-animation").hide(500, "linear")
+            }
+            if(window.scrollY>650 && window.scrollY<750) {
+                //user is at the top of the page; no need to show the back to top button
+                $(".scroll-animation-mini-1").show();
+            } else {
+                $(".scroll-animation-mini-1").hide(500, "linear")
+            }
+            if(window.scrollY>1250 && window.scrollY<1350){
+                //user is at the top of the page; no need to show the back to top button
+                $(".scroll-animation-mini-2").show();
+            } else {
+                $(".scroll-animation-mini-2").hide(500, "linear")
+            }
+            if(window.scrollY>1850 && window.scrollY<1950){
+                //user is at the top of the page; no need to show the back to top button
+                $(".scroll-animation-mini-3").show();
+            } else {
+                $(".scroll-animation-mini-3").hide(500, "linear")
+            }
+            
+        });
+    </script>
 </head>
 <body>
-    <!-- Nav Section-->
-    <nav class="navbar">
-        <div class="navbar__container">
-            <a href="/index.html" id="navbar__logo">Home</a>
-            <div class="navbar__toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-            <ul class="navbar__menu">
-                
-                <li class="navbar__item">
-                    <a href="./about_tech.html" class="navbar__links"> Learn </a>
-                </li>
-                <li class="navbar__item">
-                    <a href="./tutorial.html" class="navbar__links"> Watch Tutorial </a>
-                </li>
-                <li class="navbar__item">
-                    <a href="./links.html" class="navbar__links"> Get Inspired </a>
-                </li>
-                <li class="navbar__item">
-                    <a href="./critique.html" class="navbar__links"> Read More </a>
-                </li>
-                <li class="navbar__item">
-                    <a href="./about.html" class="navbar__links"> About Site </a>
-                </li>
-                <!-- <li class="navbar__btn">
-                    <a href="https://threejs.org/" target="_blank" class="button">threejs.org</a>
-                </li> -->
-            </ul>
-        </div>
-    </nav>
+    <div class="sticky_nav" id="navbar"></div>
 
     <!-- Torus Animation -->
     <script src="./js/three.js"></script>
@@ -142,40 +156,27 @@
     </div>
     <!-- End Torus Animation -->
 
+    <!-- Scroll Animation -->
+    <div class="scroll-animation">
+        <a href="#about-content" class="scroll-down">
+            <div class="mouse">
+                <span></span>
+            </div>
+            <div class="arrow">
+                <span></span>
+            </div>
+        </a>
+    </div>
+    <!-- End Scroll Animation -->
+
     <!-- Hero Section -->
     <div class="main">
         <div class="main__container">
             <div class="main__content">
-                <h1>Welcome WEB DEVELOPER !</h1>
-                <h2>To an introductory guide of THREE.JS</h2>
-                <p>
-                    My name is Rahul Ravi. I am earning my bachelors degree in 
-                    Cognitive and Data Science as an undergraduate student at UC 
-                    San Diego.
-                    <br>
-                    <br>
-                    The purpose of this website is to uncover the tools provided by 
-                    three.js. As a new web developer you have heard of HTML, 
-                    CSS, and JavaScript. These are the monoliths of web development and 
-                    requirements for most front-end web developer jobs. Three.js is an 
-                    open source JavaScript library licensed by <a href="https://opensource.org/licenses/MIT"
-                    target="_blank">MIT</a> and it can be used to create three dimensional
-                    environments in website for users to interact with. Remember back when
-                    you needed Abobe Flash to play games in a browser? Now the
-                    technology that allows for this can be achieved through javascript as
-                    well. There are multiple distinguished websites that utilize three.js 
-                    to offer a better user experience. 
-                    <br>
-                    <br>
-                    The demand for interactive, modern, and functional web interfaces is 
-                    large, growing and as technology for virtual and augmented reality 
-                    becomes more socially orthodox, developers will benefit
-                    from utilization of advanced libraries like three.js. Do you want 
-                    to explore cool projects and learn more about three.js so you can use it 
-                    to build a fresh interface for your portfolio, business, or job?
-                    
-                </p>
-                <button class="main__btn"><a href="/index.html">Get Started</a></button>
+                <h1>Welcome Web Developer!</h1>
+                <p>To an introductory guide of <span class="gradient-p">THREE.JS</span></p>
+                
+                <!-- <button class="main__btn"><a href="/index.html">Get Started</a></button> -->
             </div>
             <!-- <div class="main__img--container">
                 <img src="images/undraw_building_blocks_re_rwls.svg" alt="pic" id="main__img">
@@ -183,14 +184,61 @@
         </div>
     </div>
 
+    <!-- Main content section -->
+    <div class="learn-content" id="about-content">
+        <h2>About Site:</h2>
+        
+        <div class="answer">
+            <p>
+                Hello there! My name is Rahul Ravi. I am an undergraduate student at UC San Diego,
+                earning my bachelors degree in Cognitive and Data Science. Welcome to my world!
+                <br>
+                <br>
+                Do you want to explore cool content and learn about new software that you 
+                can use to build portfolios and websites? If you said yes, then I am
+                pleaseed to tell you that the demand for interactive, modern, and functional
+                web interfaces is large and continues to grow as virtual reality technologies 
+                are adopted by the masses. Due to these trends, developers will benefit from 
+                awareness of libraries like three.js. The purpose of this website is to uncover 
+                the tools provided by three.js and help developers learn new technologies. 
+                <br>
+                <br>
+                As a web developer you have heard of HTML, 
+                CSS, and JavaScript. These are the monoliths of web development and are also 
+                requirements for front-end web developer jobs. Three.js is an 
+                open source JavaScript library licensed by <a href="https://opensource.org/licenses/MIT"
+                target="_blank">MIT</a> and it is used to create three dimensional
+                environments in browsers for users to interact with. Remember back when
+                you needed Abobe Flash to play games in a browser? Now the
+                technology for that can be achieved solely through javascript code. Creating 
+                worlds in browsers has never been so easy. <a href="./learn.html"
+                target="_blank">Get started now!</a>
+                
+            </p>
+            <!-- Scroll Animation -->
+            <div class="scroll-animation-mini scroll-animation-mini-1">
+                <a href="#dribble" class="scroll-down">
+                    <!-- <div class="mouse">
+                        <span></span>
+                    </div> -->
+                    <div class="arrow-mini">
+                        <span></span>
+                    </div>
+                </a>
+            </div>
+            <!-- End Scroll Animation -->
+        </div>
+    </div>  
+    <!-- End main content section -->
+
     <!-- Dribble Section -->
     <div class="dribble" id="dribble">
-        <a href='./about_tech.html' class="fancy-card">
+        <a href='./learn.html' class="fancy-card">
             <span class="fancy-card__number" aria-hidden="true">1</span>
             <h2 class="fancy-card__title">Learn</h2>
             <span class="fancy-card__arrow" aria-hidden="true">&#8594</span>
 
-            <img class="fancy-card__image" src="./images/about_tech_img.png" alt="">
+            <img class="fancy-card__image" src="./images/learn_knot_pic.png" alt="">
             <img class="fancy-card__image" src="./images/pair_programming.svg" alt="">
         </a>
 
@@ -241,61 +289,6 @@
     </div>
     <!-- End Dribble Section -->
 
-    <!-- Footer Section -->
-    <footer>
-        <div class="footer__container">
-            <div class="footer__links">
-                <!-- <div class="footer__link--wrapper">
-                    <div class="footer__link--items">
-                        <h2>Inspiring Sites</h2>
-                        <a href="https://billie.withyoutube.com/" target="_blank"><i>BILLIE EILISH</i></a>
-                        <a href="https://cloud.withgoogle.com/infrastructure" target="_blank">Google Cloud</a>
-                        <a href="https://www.aquarium.ru/en"  target="_blank">Aquarium.ru</a>
-                    </div>
-                    <div class="footer__link--items">
-                        <h2>Community</h2>
-                        <a href="https://github.com/mrdoob/three.js/releases" target="_blank">Three.js GitHub</a>
-                        <a href="https://threejs.org/manual/#en/fundamentals">Learn</a>
-                        <a href="https://discord.gg/HF4UdyF">Discord</a>
-                        <a href="https://twitter.com/threejs">Twitter</a>
-                    </div>
-                </div> -->
-                <!-- <div class="footer__link--wrapper">
-                    <div class="footer__link--items">
-                        <h2>About Us</h2>
-                        <a href="/">How it works</a>
-                        <a href="/">Testimonials</a>
-                        <a href="/">Careers</a>
-                        <a href="/">Investments</a>
-                        <a href="/">Terms of Services</a>
-                    </div>
-                    <div class="footer__link--items">
-                        <h2>About Us</h2>
-                        <a href="/">How it works</a>
-                        <a href="/">Testimonials</a>
-                        <a href="/">Careers</a>
-                        <a href="/">Investments</a>
-                        <a href="/">Terms of Services</a>
-                    </div>
-                </div> -->
-            </div>
-            <div class="social__media">
-                <div class="social__media--wrap">
-                    <!-- <div class="footer__logo">
-                        <a href="/" id="footer__logo">Author: Rahul R</a>
-                    </div> -->
-                    <p class="website__rights">By Rahul Ravi, undergraduate @ UCSD.</p>
-                    <!-- <div class="social__icons">
-                        <a href="/" class="social__icon--link">
-                        
-                        </a>
-                    </div> -->
-                </div>
-            </div>
-        </div>
-    </footer>
-    
-
-    <script src="app.js"></script>
+    <div id="footer"></div>
 </body>
 </html>

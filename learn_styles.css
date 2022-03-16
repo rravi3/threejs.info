@@ -3,34 +3,15 @@
     margin: 0;
     padding: 0;
     font-family: 'Roboto', sans-serif;
-    user-select: none;
     /* background-color: #131313; */
 }
 html {
     scroll-behavior:smooth;
 }
-
 body {
     overscroll-behavior: none;
     overflow-x: hidden;
     background-color: #131313;
-}
-
-:root {
-    --background-color-rainbow: linear-gradient(60deg, #5ff281, #5f86f2, #a65ff2, #f25fd0, 
-    #f25f61, #f2cb5f) 0 50%;
-    --background-color-gray: linear-gradient(60deg, #f8f8ff, #cac9cd, #9b9a9c, #6d6a6a,
-    #3e3b39, #100c07) 0 50%;
-    --background-color-shiny-gray: linear-gradient(90deg, #A8A9AD,#B5B7BB,#CCCCCC,#D8D8D8,
-    #757575,#AFB1AE) 0 100%;
-    --background-size: 300% 300%;
-    --animation-properties: alternate-gradient 5s alternate infinite;
-}
-
-@keyframes alternate-gradient {
-    50% {
-        background-position: 100% 50%;
-    }
 }
 
 /* Scroll Animation CSS */
@@ -79,8 +60,8 @@ body {
     width: 1rem;
     height: 1rem;
     border: 2px solid transparent;
-    border-right-color: #FFDEAD;
-    border-bottom-color: #FFDEAD;
+    border-right-color: #FFDEAD	;
+    border-bottom-color: #FFDEAD	;
     transform: rotate(45deg);
     animation: arrow-down 1s alternate infinite;
 }
@@ -122,49 +103,6 @@ body {
     z-index: -99;
 }
 /* End Torus Animation CSS */
-
-/* Summary CSS */
-.summary {
-    margin-top: 5rem;
-    position: relative;
-    background-color: transparent;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.summary__content {
-    align-items: center;
-    justify-self: center;
-    margin: 0;
-    margin-top: 10rem;
-    margin-bottom: 10rem;
-    z-index: 1;
-    width: 100%;
-    max-width: 1300px;
-    padding: 0 50px;
-}
-
-.summary__content h1 {
-    font-size: 2rem;
-    /* background-color: #ff8177; */
-    background-image: linear-gradient(60deg, #5ff281, #5f86f2, #a65ff2, #f25fd0, 
-    #f25f61, #f2cb5f);
-    /* background-size: 100%; */
-    -webkit-background-clip: text;
-    -moz-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    -moz-text-fill-color: transparent;
-}
-
-.summary__content p {
-    margin-top: 2rem;
-    font-size: 1.2rem;
-    font-weight: 500;
-    line-height: 2rem;
-    color: #FFDEAD	;
-}
-/* End Summary CSS */
 
 /* Hero Selection CSS */
 .main {
@@ -220,10 +158,6 @@ body {
     font-size: 1.5rem;
     font-weight: 700;
     color: #FFDEAD	;
-}
-
-.main__content a {
-    text-decoration: none;
 }
 
 .main__btn {
@@ -445,6 +379,151 @@ body {
     }
 }
 /* End Scroll Animation Mini CSS */
+/* End Main Content CSS */
+
+/* Services Section CSS */
+.services {
+    /* background: #141414; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* height: 80vh; */
+}
+
+.services h1 {
+    margin-top: 7rem;
+
+    background-color: #ff8177;
+    background-image: linear-gradient(
+        to top, 
+        #ff8177 0%, 
+        #ff867a 0%, 
+        #ff8c7f 21%, 
+        #f99185 52%, 
+        #cf556a 78%, 
+        #b12a5b 100%);
+    background-size: 100%;
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -moz-text-fill-color: transparent;
+}
+
+.services__container {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.services__card {
+    margin: 1rem;
+    height: 525px;
+    width: 400px;
+    border-radius: 4px;
+    background-image: linear-gradient(
+        to bottom, 
+        rgba(0,0,0,0) 0%, 
+        rgba(17,17,17,0.6) 100%), 
+        url('./images/fun_man.JPG');
+    background-size: cover;
+    position: relative;
+    color: #FFDEAD	;
+}
+
+.services__card:nth-child(2) {
+    background-image: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0) 0%, 
+        rgba(17,17,17,0.6) 100%), 
+        url('./images/vr_girl.JPG')
+}
+
+.services h2 {
+    position: absolute;
+    top: 350px;
+    left: 30px;
+}
+
+.services__card p {
+    position: absolute;
+    top: 400px;
+    left: 30px;
+}
+
+.services__card button {
+    color: #FFDEAD	;
+    padding: 10px 20px;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    background: #f77062;
+    position: absolute;
+    top: 440px;
+    left: 30px;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.services__card:hover {
+    transform: scale(1.075);
+    transition: 0.2s ease-in;
+    cursor: pointer;
+}
+
+@media screen and (max-width:960px) {
+    .services {
+        height: 1600px;
+    }
+
+    .services h1 {
+        font-size: 2rem;
+        margin-top: 12rem;
+    }
+}
+
+@media screen and (max-width:480px) {
+    .services {
+        height: 1400px;
+    }
+
+    .services h1 {
+        font-size: 1.2rem;
+    }
+
+    .services__card {
+        width: 300px;;
+    }
+}
+
+.overlay {
+    width: 100%;
+    height: 100vh;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 99;
+    display: flex;
+}
+
+.layer {
+    background-color: #131313;
+}
+
+.layer-1{
+    flex: 1;
+    /* background-color: #000; */
+}
+
+.layer-2{
+    flex: 1;
+    /* background-color: #FFDEAD	; */
+}
+
+.layer-3{
+    flex: 1;
+}
 
 /* Dribble CSS */
 .dribble {
@@ -905,88 +984,4 @@ body {
         width: 100%;
     }
 }
-
-.overlay {
-    width: 100%;
-    height: 200vh;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 99;
-    display: flex;
-}
-
-.layer {
-    background-color: #131313;
-}
-
-.layer-1{
-    flex: 1;
-    background-color: #ffdead;
-}
-
-.layer-2{
-    flex: 1;
-    align-items: center;
-    justify-content: center;
-    background-color: #000;
-    min-height: 100vh;
-    display: grid;
-    place-items: center;
-}
-
-.layer-3{
-    flex: 1;
-    background-color: #ffdead;
-}
-
-/* Loading Screen CSS */
-
-@property --a {
-    initial-value: 0deg;
-    inherits: false;
-    syntax: '<angle>';
-}
-@property --h {
-    initial-value: 0;
-    inherits: false;
-    syntax: '<number>';
-}
-.loader {
-    transform: translate(0, -200%);
-    padding: 2rem 4rem;
-    font-family: monospace;
-    font-weight: bold;
-    color: #fff;
-    border-style: solid;
-    border-width: 1vmin;
-    font-size: 2rem;
-    --charge: hsl(var(--h, 0), 80%, 50%);
-    -o-border-image: conic-gradient(var(--charge) var(--a), transparent calc(var(--a) + 0.5deg)) 30;
-       border-image: conic-gradient(var(--charge) var(--a), transparent calc(var(--a) + 0.5deg)) 30;
-    -webkit-animation: load 2s infinite ease-in-out;
-            animation: load 2s infinite ease-in-out;
-}
-@-webkit-keyframes load {
-    0%, 10% {
-      --a: 0deg;
-      --h: 0;
-    }
-    100% {
-      --a: 360deg;
-      --h: 100;
-    }
-}
-@keyframes load {
-    0%, 10% {
-      --a: 0deg;
-      --h: 0;
-    }
-    100% {
-      --a: 360deg;
-      --h: 100;
-    }
-}
-  
-
-/* End Loading Screen CSS */
+/* End Footer CSS */

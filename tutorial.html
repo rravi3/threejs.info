@@ -3,45 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!-- <meta http-equiv="content-type" content="text/html"> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0,
     maximum-scale=1.0, minimum-scale=1.0">
-    <title>Document</title>
+    <title>Tutorial - three.js</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="tutorial_styles.css">
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+    <script>
+        window.addEventListener("scroll", function(){
+            if(window.scrollY==0){
+                //user is at the top of the page; no need to show the back to top button
+                $(".scroll-animation").show();
+            } else {
+                $(".scroll-animation").hide(500, "linear")
+            }
+        });
+    </script>
+    <script> 
+        $(function(){
+          $("#navbar").load("nav.html"); 
+          $("#footer").load("footer.html");
+        });
+    </script>
 </head>
 <body>
-    <!-- Nav Section-->
-    <nav class="navbar">
-        <div class="navbar__container">
-            <a href="/index.html" id="navbar__logo">Home</a>
-            <div class="navbar__toggle" id="mobile-menu">
-                <span class="bar"></span>
-                <span class="bar"></span>
-                <span class="bar"></span>
-            </div>
-            <ul class="navbar__menu">
-                
-                <li class="navbar__item">
-                    <a href="./about_tech.html" class="navbar__links"> Learn </a>
-                </li>
-                <li class="navbar__item">
-                    <a href="./tutorial.html" class="navbar__links"> Watch Tutorial </a>
-                </li>
-                <li class="navbar__item">
-                    <a href="./links.html" class="navbar__links"> Get Inspired </a>
-                </li>
-                <li class="navbar__item">
-                    <a href="./critique.html" class="navbar__links"> Read More </a>
-                </li>
-                <li class="navbar__item">
-                    <a href="./about.html" class="navbar__links"> About Site </a>
-                </li>
-                <!-- <li class="navbar__btn">
-                    <a href="https://threejs.org/" target="_blank" class="button">threejs.org</a>
-                </li> -->
-            </ul>
-        </div>
-    </nav>
+    <div class="sticky_nav" id="navbar"></div>
 
     <!-- Torus Animation -->
     <script src="./js/three.js"></script>
@@ -72,7 +59,7 @@
             }
             const loader = new THREE.TextureLoader();
             const star = loader.load('./images/star.png');
-            const face_geometry = new THREE.CylinderGeometry(0.4, 0.4, 1, 20);
+            const face_geometry = new THREE.BoxGeometry(1, 1, 1, 5, 5, 10);
             const starsGeometry = new THREE.BufferGeometry;
             const particlesCnt = 5000;
             const posArray = new Float32Array(particlesCnt * 3)
@@ -87,7 +74,7 @@
                     },
                     color2: {
                         value: new THREE.Color("purple")
-                    },
+                    }
                 },
                 vertexShader: `
                     varying vec2 vUv;
@@ -142,7 +129,33 @@
     </div>
     <!-- End Torus Animation -->
 
-    <section>
+    <!-- Scroll Animation -->
+    <div class="scroll-animation">
+        <a href="#tutorials" class="scroll-down">
+            <div class="mouse">
+                <span></span>
+            </div>
+            <div class="arrow">
+                <span></span>
+            </div>
+        </a>
+    </div>
+    <!-- End Scroll Animation -->
+
+    <!-- Hero Section -->
+    <div class="main">
+        <div class="main__content">
+            <h1>Tutorials</h1>
+            <!-- <h2>A Modern Javascript Library</h2> -->
+            <p>Learn the fundamentals and get<br>started with <span class="gradient-p">THREE.JS</span> today.</p>
+            <!-- <button class="main__btn"><a href="/">Get Started</a></button> -->
+        </div>
+        <!-- <div class="main__img--container"> -->
+            <!-- <img src="images/pair_programming.svg" alt="pic" id="main__img"> -->
+        <!-- </div> -->
+    </div>
+
+    <section id="tutorials">
         <div class="container">
             <div class="pricing-table">
                 <div class="table-item">
@@ -211,12 +224,12 @@
 
     <!-- Dribble Section -->
     <div class="dribble" id="dribble">
-        <a href='./about_tech.html' class="fancy-card">
+        <a href='./learn.html' class="fancy-card">
             <span class="fancy-card__number" aria-hidden="true">1</span>
             <h2 class="fancy-card__title">Learn</h2>
             <span class="fancy-card__arrow" aria-hidden="true">&#8594</span>
 
-            <img class="fancy-card__image" src="./images/about_tech_img.png" alt="">
+            <img class="fancy-card__image" src="./images/learn_knot_pic.png" alt="">
             <img class="fancy-card__image" src="./images/pair_programming.svg" alt="">
         </a>
 
@@ -267,61 +280,7 @@
     </div>
     <!-- End Dribble Section -->
 
-    <!-- Footer Section -->
-    <footer>
-        <div class="footer__container">
-            <div class="footer__links">
-                <!-- <div class="footer__link--wrapper">
-                    <div class="footer__link--items">
-                        <h2>Inspiring Sites</h2>
-                        <a href="https://billie.withyoutube.com/" target="_blank"><i>BILLIE EILISH</i></a>
-                        <a href="https://cloud.withgoogle.com/infrastructure" target="_blank">Google Cloud</a>
-                        <a href="https://www.aquarium.ru/en"  target="_blank">Aquarium.ru</a>
-                    </div>
-                    <div class="footer__link--items">
-                        <h2>Community</h2>
-                        <a href="https://github.com/mrdoob/three.js/releases" target="_blank">Three.js GitHub</a>
-                        <a href="https://threejs.org/manual/#en/fundamentals">Learn</a>
-                        <a href="https://discord.gg/HF4UdyF">Discord</a>
-                        <a href="https://twitter.com/threejs">Twitter</a>
-                    </div>
-                </div> -->
-                <!-- <div class="footer__link--wrapper">
-                    <div class="footer__link--items">
-                        <h2>About Us</h2>
-                        <a href="/">How it works</a>
-                        <a href="/">Testimonials</a>
-                        <a href="/">Careers</a>
-                        <a href="/">Investments</a>
-                        <a href="/">Terms of Services</a>
-                    </div>
-                    <div class="footer__link--items">
-                        <h2>About Us</h2>
-                        <a href="/">How it works</a>
-                        <a href="/">Testimonials</a>
-                        <a href="/">Careers</a>
-                        <a href="/">Investments</a>
-                        <a href="/">Terms of Services</a>
-                    </div>
-                </div> -->
-            </div>
-            <div class="social__media">
-                <div class="social__media--wrap">
-                    <!-- <div class="footer__logo">
-                        <a href="/" id="footer__logo">Author: Rahul R</a>
-                    </div> -->
-                    <p class="website__rights">By Rahul Ravi, undergraduate @ UCSD.</p>
-                    <!-- <div class="social__icons">
-                        <a href="/" class="social__icon--link">
-                        
-                        </a>
-                    </div> -->
-                </div>
-            </div>
-        </div>
-    </footer>
-
-    <script src="app.js"></script>
+   <div id="footer"></div>
 
 </body>
 </html>

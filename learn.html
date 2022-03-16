@@ -4,27 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>THREE.JS</title>
-    <link rel="stylesheet" href="critique_styles.css" />
+    <title>Learn - three.js</title>
+    <link rel="stylesheet" href="learn_styles.css" />
     <link href="https://fonts.googleapis.com/css2?family=Kumbh+Sans:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
-    <script>
-        window.addEventListener("scroll", function(){
-            if(window.scrollY==0){
-                //user is at the top of the page; no need to show the back to top button
-                $(".scroll-animation").show();
-            } else {
-                $(".scroll-animation").hide(500, "linear")
-            }
-        });
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.5/gsap.min.js"></script>
-    <script> 
-        $(function(){
-          $("#navbar").load("nav.html"); 
-          $("#footer").load("footer.html");
-        });
-    </script>
     <script>
         window.addEventListener("scroll", function(){
             if(window.scrollY==0){
@@ -54,22 +37,16 @@
             
         });
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.2.5/gsap.min.js"></script>
+    <script> 
+        $(function(){
+          $("#navbar").load("nav.html"); 
+          $("#footer").load("footer.html");
+        });
+    </script>
 </head>
 <body>
     <div class="sticky_nav" id="navbar"></div>
-
-    <!-- Scroll Animation -->
-    <!-- <div class="scroll-animation">
-        <a href="#dribble" class="scroll-down">
-            <div class="mouse">
-                <span></span>
-            </div>
-            <div class="arrow">
-                <span></span>
-            </div>
-        </a>
-    </div> -->
-    <!-- End Scroll Animation -->
 
     <!-- Torus Animation -->
     <script src="./js/three.js"></script>
@@ -100,7 +77,7 @@
             }
             const loader = new THREE.TextureLoader();
             const star = loader.load('./images/star.png');
-            const face_geometry = new THREE.CylinderGeometry(0.25, 0.25, 1.7, 20);
+            const face_geometry = new THREE.TorusKnotGeometry(0.5, 0.12);
             const starsGeometry = new THREE.BufferGeometry;
             const particlesCnt = 5000;
             const posArray = new Float32Array(particlesCnt * 3)
@@ -111,11 +88,11 @@
             const face_material = new THREE.ShaderMaterial( {
                 uniforms: {
                     color1: {
-                        value: new THREE.Color("red")
-                    },
-                    color2: {
                         value: new THREE.Color("purple")
                     },
+                    color2: {
+                        value: new THREE.Color("red")
+                    }
                 },
                 vertexShader: `
                     varying vec2 vUv;
@@ -170,31 +147,24 @@
     </div>
     <!-- End Torus Animation -->
 
-
     <!-- Hero Section -->
     <div class="main">
-        <div class="main__content">
-            <a href="https://usersnap.com/blog/3d-graphics-three-js-review/" target="_blank">
-                <h1>Article Review</h1>
-            </a>
-            <!-- <h2>A Modern Javascript Library</h2> -->
-            <p>Check out this great read, titled 
-                <a href="https://usersnap.com/blog/3d-graphics-three-js-review/" target="_blank">
-                    <span class="gradient-p"><i>Running 3D graphics inside the browser with 
-                    Three.JS.</i></span>
-                </a>, by 
-                <a href="https://usersnap.com/blog/3d-graphics-three-js-review/" target="_blank">
-                    <span class="gradient-p">Thomas Peham.</span>
-                </a>
-            </p>
-            <!-- <button class="main__btn"><a href="/">Get Started</a></button> -->
+        <div class="main__container">
+            <div class="main__content">
+                <h1>Fun with Fundamentals</h1>
+                <!-- <h2>- THREE.JS -</h2> -->
+                <p>Learn how to code cameras, lighting, and objects in a broswer.</p>
+                <!-- <button class="main__btn"><a href="/">Get Started</a></button> -->
+            </div>
+            <div class="main__img--container">
+                <!-- <img src="images/pair_programming.svg" alt="pic" id="main__img"> -->
+            </div>
         </div>
     </div>
-    <!-- End Hero Section -->
 
     <!-- Scroll Animation -->
     <div class="scroll-animation">
-        <a href="#summary" class="scroll-down">
+        <a href="#learn-content" class="scroll-down">
             <div class="mouse">
                 <span></span>
             </div>
@@ -206,39 +176,33 @@
     <!-- End Scroll Animation -->
 
     <!-- Main content section -->
-    <div class="learn-content" id="summary">
-        <h2>Summary</h2>
+    <div class="learn-content" id="learn-content">
+        <h2>What is THREE.JS?</h2>
         
         <div class="answer">
-            <p> 
-                <a href="https://usersnap.com/blog/author/thomas/" class="author-name" target="_blank">
-                    Thomas Peham's</a>
-                    article does a great job of summarizing the key components of three.js.
-                The author begins with a brief background on WebGL and its role in GPU accelerated
-                content for browsers. Then he highlights how three.js makes it so that
-                programmers have to wirte a lot less code to do the same things with just WebGL.
-                This is key because we want the process of writing code to become faster and easier,
-                so that more content and software can be built by more people. Peham includes a 
-                tutorial and step by step code so the reader can build a small project with three.js.
-                This is brillant because it shows the user they are capable of utilizing the technology
-                and summarizes the ease and efficieny that comes with the three.js library.
+            <p>In one sentence, it is a library for writing code that generates 3D graphics 
+                on a browser.
                 <br>
                 <br>
-                Key Concepts:
+                WARNING! This content requires you to have pre-existing knowledge of HTML and 
+                javascript. It is not intended for audiences with no computer science experience.
                 <br>
-                <a href="https://www.khronos.org/webgl/" target="_blank">WebGL</a>:
-                Stands for web graphics library, and it is an API which is utilized 
-                to increase graphical performance of content on the browser. Supported
-                by most modern browsers and much more lightweight compared to alternative
-                solutions like plug-ins.
                 <br>
-                <a href="https://threejs.org/" target="_blank">THREE.JS</a>: Javascript library 
-                that makes writing code for WebGL software easy and fun. The purpose of this 
-                website is to guide you through getting familiar with this tech!
+                WebGL is a Javascript API that uses the computer's GPU to create 3-D graphics
+                in a broswer without the need for plug-ins like Adobe Flash.
+                Three.js was built with the intent of making the use of WebGL technologies easier.
+                <br>
+                <br>
+                When working with three.js, think of it like a 3-D game rendering engine. You have 
+                a 3-D space to work with and you get to choose what objects to place in there, how
+                the user interacts with the objects, and what limits are you going to place on the user
+                in this 3-D space.The choices are yours to make, but I will give a summary of the basic
+                components you should include in your space.
+
             </p>
             <!-- Scroll Animation -->
             <div class="scroll-animation-mini scroll-animation-mini-1">
-                <a href="#reflection" class="scroll-down">
+                <a href="#components" class="scroll-down">
                     <!-- <div class="mouse">
                         <span></span>
                     </div> -->
@@ -251,35 +215,66 @@
         </div>
         
 
-        <h2 id="reflection">My 2 Cents:</h2>
+        <h2 id="components">Components of THREE.JS:</h2>
         <div class="answer">
             <!-- <h3>Camera</h3> -->
             <p>
-                The possibilites for creating, designing, modeling, and so much more
-                are being expanded due to the wide spread adoption of libraries like
-                three.js. Articles like Peham's spread knowledge and awareness of
-                such software, which leads to development of even better software. Not
-                only do articles like this spread awareness, but they also encourage
-                new developers to start using it by proving them with easy to follow
-                documentation. The three.js library is documented very well, so it is 
-                simple for an experienced programmer to learn the basics and then
-                build on it to bring their creative ideas to life.
+                <b>Camera:</b><br>
+                The camera gives you access to view the world from the perspective of
+                where your camera is placed and what objects and lighting are present
+                at that moment of time. This is one of most important, yet
+                very basic components of three.js. For mroe information on the different
+                types of cameras and syntax for how to implement them, 
+                <a href="https://threejs.org/docs/index.html#api/en/cameras/Camera" target="_blank">click here</a>.
                 <br>
                 <br>
-                Peham's article has several references to the main three.js library,
-                which helps the reader find the source code and practices of the
-                library from the creators themselves. Users who are interested in 
-                learning three.js should refer to the 
-                <a href="https://threejs.org/docs/index.html#manual/en/introduction/Creating-a-scene" 
-                target="_blank">source documentation</a> 
-                often because it provides the most accurate solutions. If the task is quite
-                unique, there are other forums on stackoverflow which cover a lot of
-                different concepts and bugs that you may encounter while coding.
-                The key takeaway here is that there are a plethora of resources available,
-                so try to explore the web and let your curiosity guide you.
+                <b>Lighting:</b><br>
+                Lighting creates visibility and mood. Most people add one static light source 
+                and call it a day, but the most creative projects offer interactive and mobile
+                light sources. Be creative and explore different types of 
+                <a href="https://threejs.org/docs/index.html#api/en/lights/AmbientLight" target="_blank">lighting options.</a>
+                <br><br>
+                <b>Objects:</b><br>
+                This is the meat of the operation. You will use objects to bring your world to life.
+                Check out the <a href="https://threejs.org/docs/index.html#api/en/geometries/BoxGeometry" target="_blank">basic geometries</a> offered by the three.js package.
+                <br>
+                <br>
+                For a walkthrough of how to put everything together and create a 3D world,
+                proceed to the <a href="./tutorial.html" target="_blank">tutorial page.</a>
             </p>
             <!-- Scroll Animation -->
             <div class="scroll-animation-mini scroll-animation-mini-2">
+                <a href="#projects" class="scroll-down">
+                    <!-- <div class="mouse">
+                        <span></span>
+                    </div> -->
+                    <div class="arrow-mini">
+                        <span></span>
+                    </div>
+                </a>
+            </div>
+            <!-- End Scroll Animation -->
+        </div>
+        
+        <h2 id="projects">Projects with THREE.JS:</h2>
+        <div class="answer">
+            <p class="projects-text">
+                There is a ton of work created with this software. Checkout this 
+                <a href="https://threejs.org" target="_blank">main hub for three.js</a> 
+                which hosts a plethora of projects. Not only that, it also offers
+                documentation and guidance in several different media formats.
+                <br>
+                <br>
+                This is brillant because it creates a sense of community and offers inspiration
+                through sharing what is possible with this technology. Here is a snapshot
+                from <a href="https://threejs.org" target="_blank">threejs.org</a>, 
+                which captures the true beauty of a collage of creative works.
+            </p>
+            <a href="https://threejs.org" target="_blank">
+            <img class="fancy-card__image" src="./images/collage.png" alt="" style="width: 400px;">
+            </a>
+            <!-- Scroll Animation -->
+            <div class="scroll-animation-mini scroll-animation-mini-3">
                 <a href="#dribble" class="scroll-down">
                     <!-- <div class="mouse">
                         <span></span>
@@ -291,15 +286,14 @@
             </div>
             <!-- End Scroll Animation -->
         </div>
-        
     </div>  
     <!-- End main content section -->
 
     <!-- Dribble Section -->
     <div class="dribble" id="dribble">
-        <a href='./learn.html' class="fancy-card">
+        <a href='./learn.html' class="fancy-card-current">
             <span class="fancy-card__number" aria-hidden="true">1</span>
-            <h2 class="fancy-card__title">Learn</h2>
+            <h2 class="fancy-card__title-current">Learn</h2>
             <span class="fancy-card__arrow" aria-hidden="true">&#8594</span>
 
             <img class="fancy-card__image" src="./images/learn_knot_pic.png" alt="">
@@ -329,9 +323,9 @@
             <img class="fancy-card__image" src="./images/links-chair-showroom.png" alt="">
         </a>
 
-        <a href='' class="fancy-card-current">
+        <a href='./critique.html' class="fancy-card">
             <span class="fancy-card__number" aria-hidden="true">4</span>
-            <h2 class="fancy-card__title-current">Read more</h2>
+            <h2 class="fancy-card__title">Read more</h2>
             <span class="fancy-card__arrow" aria-hidden="true">&#8594</span>
 
             <img class="fancy-card__image" src="" alt="">
@@ -355,30 +349,12 @@
 
     <div id="footer"></div>
 
-    <!-- Landing Animation Conent -->
-    <!-- <div class="overlay">
-        <div class="layer layer-1"></div>
-        <div class="layer layer-2">
-            <div class="loader">Loading Stuff...</div>
-        </div>
-        <div class="layer layer-3"></div>
-    </div> -->
-    <script>
-        // gsap.to('.layer-1', {y: '-100vh', delay:4})
-        // gsap.to('.layer-2', {y: '-100vh', delay:4})
-        // gsap.to('.layer-3', {y: '-100vh', delay:4})
-        // gsap.to('.overlay', {y: '-200vh', delay:4.3})
-
-        // gsap.fromTo('.main__content', 
-        //     {x: '30rem', opacity: 0},
-        //     {x: 0, opacity: 1, ease: 'back.out(.3)', delay: 5}
-        // )
-        // gsap.fromTo('#torus-animation', 
-        //     {x: '-30rem', opacity: 0},
-        //     {x: 0, opacity: 1, ease: 'back.out(.3)', delay: 4.5}
-        // )
-    </script>
-    <!-- End Landing Animation Content -->
+    <!-- <script>
+        let elem = document.querySelector('#components');
+        let rect = elem.getBoundingClientRect();
+        console.log("x: "+ rect.x);
+        console.log("y: "+ rect.y);
+    </script> -->
     
 </body>
 </html>
